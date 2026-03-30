@@ -70,3 +70,11 @@ AFFILIATE_TAG = "musclelove07-22"
 
 ADSENSE_CLIENT_ID = os.environ.get("ADSENSE_CLIENT_ID", "")
 DASHBOARD_PORT = 8087
+
+# Google Analytics (GA4)
+GOOGLE_ANALYTICS_ID = "G-CSFVD34MKK"
+
+# Google Search Console 認証ファイル
+SITE_VERIFICATION_FILES = {
+    "googlea31edabcec879415.html": "google-site-verification: googlea31edabcec879415.html",
+}
