@@ -41,7 +41,8 @@ jobs:
       - name: Install deps
         run: |
           pip install --upgrade pip
-          pip install -r requirements.txt
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          if [ -f blog_engine/requirements.txt ]; then pip install -r blog_engine/requirements.txt; fi
       - name: Rebuild site from existing articles
         run: |
           python - <<'PY'
