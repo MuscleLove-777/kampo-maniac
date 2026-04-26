@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).parent
 
 BLOG_NAME = "漢方マニアック"
 BLOG_DESCRIPTION = "証・体質・症状から引ける漢方データベース。ツムラ全128処方を徹底解説。エビデンスと体験で届ける、日本一マニアックな漢方ブログ"
-BLOG_URL = "https://musclelove-777.github.io/kampo-maniac"
+BLOG_URL = "https://musclelove-777.github.io/kampo-maniac/"
 BLOG_LANGUAGE = "ja"
 GITHUB_REPO = "MuscleLove-777/kampo-maniac"
 
@@ -36,11 +36,11 @@ THEME = {
 }
 
 MAX_ARTICLE_LENGTH = 3000
-ARTICLES_PER_DAY = 3
-SCHEDULE_HOURS = [7, 12, 19]
+ARTICLES_PER_DAY = 1
+SCHEDULE_HOURS = [8, 19]
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
-GEMINI_MODEL = "gemini-2.5-flash"
+GEMINI_MODEL = "gemini-2.5-flash-lite"
 
 ENABLE_SEO_OPTIMIZATION = True
 MIN_SEO_SCORE = 70
@@ -78,3 +78,9 @@ GOOGLE_ANALYTICS_ID = "G-HJLCFVY5TF"
 SITE_VERIFICATION_FILES = {
     "googlea31edabcec879415.html": "google-site-verification: googlea31edabcec879415.html",
 }
+
+# コンテンツ画像設定（Google Drive から記事内に画像を自動挿入）
+CONTENT_IMAGES_ENABLED = True
+CONTENT_IMAGES_FOLDER_ID = os.environ.get("CONTENT_IMAGES_FOLDER_ID", "")
+GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY", "")
+CONTENT_IMAGES_PER_ARTICLE = 3

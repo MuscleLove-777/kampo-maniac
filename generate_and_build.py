@@ -55,13 +55,8 @@ def run(cfg=None, prm=None):
     # ステップ1: キーワード選定
     logger.info("ステップ1: キーワード選定")
     try:
-        from google import genai
-
-        if not cfg.GEMINI_API_KEY:
-            logger.error("GEMINI_API_KEY が設定されていません")
-            sys.exit(1)
-
-        client = genai.Client(api_key=cfg.GEMINI_API_KEY)
+        from llm import get_llm_client
+        client = get_llm_client(cfg)
 
         if prm and hasattr(prm, "build_keyword_prompt"):
             prompt = prm.build_keyword_prompt(cfg)
@@ -130,6 +125,24 @@ def run(cfg=None, prm=None):
         logger.info("アフィリエイト: %d件挿入", article.get("affiliate_count", 0))
     except Exception as e:
         logger.warning("アフィリエイト挿入スキップ: %s", e)
+
+    # ステップ2.7: アイキャッチ画像取得
+    logger.info("ステップ2.7: アイキャッチ画像取得")
+    try:
+        ImageFetcher = _try_import("image_fetcher", "ImageFetcher")
+        fetcher = ImageFetcher(cfg)
+        eyecatch_url = fetcher.fetch_eyecatch(article)
+        if eyecatch_url:
+            article["eyecatch_url"] = eyecatch_url
+            if article.get("file_path"):
+                import json as _json
+                with open(article["file_path"], "w", encoding="utf-8") as _f:
+                    _json.dump(article, _f, ensure_ascii=False, indent=2)
+            logger.info("アイキャッチ画像: %s", eyecatch_url)
+        else:
+            logger.info("アイキャッチ画像: CSSグラデーションを使用")
+    except Exception as img_err:
+        logger.warning("画像取得スキップ: %s", img_err)
 
     # ステップ3: サイトビルド
     logger.info("ステップ3: サイトビルド")
