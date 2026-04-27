@@ -1,9 +1,6 @@
 name: 漢方マニアック - Auto Generate
 
 on:
-  schedule:
-    # 毎日 JST 12:00 (UTC 3:00)
-    - cron: '0 3 * * *'
   workflow_dispatch:
 
 permissions:
